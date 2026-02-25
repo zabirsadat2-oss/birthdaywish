@@ -19,7 +19,6 @@
             position: relative;
         }
 
-        /* Floating hearts animation */
         .heart {
             position: fixed;
             font-size: 24px;
@@ -50,7 +49,6 @@
             50% { opacity: 1; transform: scale(1); }
         }
 
-        /* Music toggle */
         .music-toggle {
             position: fixed;
             top: 20px;
@@ -69,10 +67,25 @@
 
         .music-toggle:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
         }
 
-        /* Sections */
+        .music-toggle.muted {
+            background: #ffebee;
+        }
+
+        .music-status {
+            position: fixed;
+            top: 75px;
+            right: 10px;
+            background: rgba(255,255,255,0.9);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            color: #880e4f;
+            display: none;
+            z-index: 1000;
+        }
+
         .section {
             display: none;
             min-height: 100vh;
@@ -88,7 +101,6 @@
             justify-content: center;
         }
 
-        /* Landing Screen */
         .landing-container {
             text-align: center;
             animation: fadeInUp 1s ease;
@@ -134,10 +146,8 @@
 
         .start-btn:hover {
             transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 15px 40px rgba(255, 64, 129, 0.6);
         }
 
-        /* Progress Bar */
         .progress-container {
             position: fixed;
             top: 20px;
@@ -171,7 +181,6 @@
             transition: width 0.5s ease;
         }
 
-        /* Game Containers */
         .game-container {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 30px;
@@ -208,7 +217,6 @@
             font-style: italic;
         }
 
-        /* Game 1: Unlock Gift */
         .gift-box {
             width: 200px;
             height: 200px;
@@ -325,7 +333,6 @@
             animation: fadeIn 0.5s ease;
         }
 
-        /* Game 2: Decorate Cake */
         .cake-area {
             width: 300px;
             height: 300px;
@@ -400,10 +407,8 @@
 
         .done-btn.show {
             display: block;
-            animation: fadeIn 0.5s ease;
         }
 
-        /* Game 3: Pin the Balloon */
         .pin-board {
             width: 100%;
             height: 400px;
@@ -449,7 +454,6 @@
             margin-bottom: 10px;
         }
 
-        /* Game 4: Treasure Hunt */
         .treasure-scene {
             width: 100%;
             height: 400px;
@@ -495,7 +499,6 @@
             margin-bottom: 20px;
         }
 
-        /* Final Cake Section */
         .final-cake-container {
             text-align: center;
             animation: fadeIn 1s ease;
@@ -549,7 +552,6 @@
             animation: pulse 2s infinite;
         }
 
-        /* Love Letter */
         .letter-container {
             display: none;
             max-width: 800px;
@@ -561,6 +563,8 @@
             border: 3px solid #ff4081;
             position: relative;
             animation: fadeIn 1s ease;
+            max-height: 80vh;
+            overflow-y: auto;
         }
 
         .letter-container.show {
@@ -621,7 +625,6 @@
             100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
         }
 
-        /* Confetti */
         .confetti {
             position: fixed;
             width: 10px;
@@ -636,7 +639,6 @@
             100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
 
-        /* Responsive */
         @media (max-width: 600px) {
             h1 { font-size: 2em; }
             .game-container { padding: 20px; }
@@ -647,7 +649,716 @@
     </style>
 </head>
 <body>
-    <!-- Background Music -->
-    <audio id="bgMusic" loop>
-        <source src="data:audio/wav;base64,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
-          
+    <!-- Sailor Song - Multiple fallback sources -->
+    <audio id="bgMusic" loop preload="auto">
+        <!-- Primary: Direct link to Sailor Song -->
+        <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Galdson/Sailor_Song/Galdson_-_Sailor_Song.mp3" type="audio/mpeg">
+        <!-- Fallback 1: Alternative source -->
+        <source src="https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f792cb.mp3?filename=sailor-song-122111.mp3" type="audio/mpeg">
+        <!-- Fallback 2: Another alternative -->
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <button class="music-toggle" id="musicBtn" onclick="toggleMusic()" title="Click to play/pause music">🎵</button>
+    <div class="music-status" id="musicStatus">Click to play Sailor Song!</div>
+
+    <div id="floatingElements"></div>
+
+    <div class="progress-container" id="progressBar">
+        <div style="text-align: center; color: #ad1457; font-weight: bold;">Birthday Fun Progress: <span id="progressText">0/4</span></div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+    </div>
+
+    <div class="section active" id="landing">
+        <div class="landing-container">
+            <h1>Happy Birthday Lamha Afrin 🎂💖</h1>
+            <p class="subtext">Your surprise birthday adventure starts now…</p>
+            <button class="start-btn" onclick="startGames()">✨ Start ✨</button>
+        </div>
+    </div>
+
+    <div class="section" id="game1">
+        <div class="game-container">
+            <h2 class="game-title">🎁 Game 1: Unlock the Birthday Gift</h2>
+            <p class="game-hint">"Unlock the birthday surprise!"</p>
+            
+            <div class="gift-box" id="giftBox">🎁</div>
+            
+            <div class="wheels-container">
+                <div class="wheel" onclick="changeWheel(0)">0</div>
+                <div class="wheel" onclick="changeWheel(1)">0</div>
+                <div class="wheel" onclick="changeWheel(2)">0</div>
+            </div>
+            
+            <button class="unlock-btn" onclick="checkUnlock()">🔓 Unlock</button>
+            <div class="feedback" id="game1Feedback"></div>
+            
+            <div class="reward-message" id="reward1">
+                "You just unlocked my heart 💖… and it's all yours, Lamha 💫"
+            </div>
+            <button class="next-btn" id="next1" onclick="nextGame(2)">Continue to Game 2 ➡️</button>
+        </div>
+    </div>
+
+    <div class="section" id="game2">
+        <div class="game-container">
+            <h2 class="game-title">🎂 Game 2: Decorate the Birthday Cake</h2>
+            <p class="game-hint">Drag decorations to make the cake beautiful!</p>
+            
+            <div class="cake-area" id="cakeArea">
+                <div class="base-cake">🎂</div>
+            </div>
+            
+            <div class="decorations-palette">
+                <div class="decoration-item" draggable="true" data-emoji="🕯️">🕯️</div>
+                <div class="decoration-item" draggable="true" data-emoji="🍓">🍓</div>
+                <div class="decoration-item" draggable="true" data-emoji="🫐">🫐</div>
+                <div class="decoration-item" draggable="true" data-emoji="🍒">🍒</div>
+                <div class="decoration-item" draggable="true" data-emoji="🍫">🍫</div>
+                <div class="decoration-item" draggable="true" data-emoji="🍬">🍬</div>
+                <div class="decoration-item" draggable="true" data-emoji="✨">✨</div>
+                <div class="decoration-item" draggable="true" data-emoji="🌟">🌟</div>
+            </div>
+            
+            <button class="done-btn" id="doneBtn" onclick="finishDecorating()">Done Decorating ✨</button>
+            
+            <div class="reward-message" id="reward2">
+                "Every decoration reminds me of you 🫶… you make everything more beautiful 💞"
+            </div>
+            <button class="next-btn" id="next2" onclick="nextGame(3)">Continue to Game 3 ➡️</button>
+        </div>
+    </div>
+
+    <div class="section" id="game3">
+        <div class="game-container">
+            <h2 class="game-title">🎈 Game 3: Pin the Balloon</h2>
+            <p class="game-hint">Drag the balloon to the target zone!</p>
+            
+            <div class="tries-display">Tries remaining: <span id="triesLeft">3</span></div>
+            
+            <div class="pin-board" id="pinBoard">
+                <div class="target-zone" id="targetZone" style="top: 50px; right: 50px;">🎯</div>
+                <div class="draggable-balloon" id="balloon">🎈</div>
+            </div>
+            
+            <div class="feedback" id="game3Feedback"></div>
+            
+            <div class="reward-message" id="reward3">
+                "You pinned it perfectly, just like you've pinned yourself in my heart 💖✨"
+            </div>
+            <button class="next-btn" id="next3" onclick="nextGame(4)">Continue to Game 4 ➡️</button>
+        </div>
+    </div>
+
+    <div class="section" id="game4">
+        <div class="game-container">
+            <h2 class="game-title">🕵️‍♀️ Game 4: Birthday Treasure Hunt</h2>
+            <p class="game-hint">Find all 10 hidden love treasures!</p>
+            
+            <div class="treasure-counter">Found: <span id="treasureCount">0</span>/10</div>
+            
+            <div class="treasure-scene" id="treasureScene"></div>
+            
+            <div class="reward-message" id="reward4">
+                "Every treasure I hide is a little piece of my heart for you 💞… you found them all, Lamha 💖"
+            </div>
+            <button class="next-btn" id="next4" onclick="showFinalCake()">See Final Surprise 🎂</button>
+        </div>
+    </div>
+
+    <div class="section" id="finalCake">
+        <div class="final-cake-container">
+            <p style="font-size: 1.5em; color: #ad1457; margin-bottom: 20px; animation: fadeInUp 1s ease;">
+                ✨ One last surprise for you, Lamha… ✨
+            </p>
+            
+            <div class="blow-instruction">Click the candles to blow them out! 🕯️</div>
+            
+            <div class="final-cake" id="finalCakeEmoji">
+                🎂
+                <div class="candle" style="top: -30px; left: 20%;" onclick="blowCandle(this)">🕯️</div>
+                <div class="candle" style="top: -40px; left: 45%;" onclick="blowCandle(this)">🕯️</div>
+                <div class="candle" style="top: -30px; left: 70%;" onclick="blowCandle(this)">🕯️</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="loveLetter">
+        <div class="letter-container" id="letterBox">
+            <h2 class="letter-header">💌 To My Dearest Lamha 💌</h2>
+            <div class="letter-content" id="letterText"></div>
+            <span class="typing-cursor" id="cursor"></span>
+        </div>
+    </div>
+
+    <div class="hearts-rain" id="heartsRain"></div>
+
+    <script>
+        let currentGame = 0;
+        let gamesCompleted = 0;
+        let musicPlaying = false;
+        let wheels = [0, 0, 0];
+        let decorationCount = 0;
+        let triesLeft = 3;
+        let treasuresFound = 0;
+        let candlesBlown = 0;
+        let audioLoaded = false;
+
+        function createFloatingElements() {
+            const container = document.getElementById('floatingElements');
+            const hearts = ['💖', '💕', '💗', '💓', '💝'];
+            const sparkles = ['✨', '🌟', '💫'];
+            
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 15 + 's';
+                heart.style.animationDuration = (15 + Math.random() * 10) + 's';
+                container.appendChild(heart);
+            }
+            
+            for (let i = 0; i < 10; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.textContent = sparkles[Math.floor(Math.random() * sparkles.length)];
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 10 + 's';
+                container.appendChild(sparkle);
+            }
+        }
+
+        createFloatingElements();
+
+        // FIXED: Better music handling with error detection
+        function initAudio() {
+            const audio = document.getElementById('bgMusic');
+            
+            audio.addEventListener('canplaythrough', () => {
+                audioLoaded = true;
+                console.log('Sailor Song loaded successfully!');
+            });
+            
+            audio.addEventListener('error', (e) => {
+                console.log('Audio error:', e);
+                document.getElementById('musicStatus').textContent = 'Music unavailable - click for local file';
+                document.getElementById('musicStatus').style.display = 'block';
+            });
+            
+            // Try to load
+            audio.load();
+        }
+
+        initAudio();
+
+        function toggleMusic() {
+            const audio = document.getElementById('bgMusic');
+            const btn = document.getElementById('musicBtn');
+            const status = document.getElementById('musicStatus');
+            
+            if (musicPlaying) {
+                audio.pause();
+                btn.textContent = '🔇';
+                btn.classList.add('muted');
+                status.textContent = 'Music paused';
+                status.style.display = 'block';
+                musicPlaying = false;
+            } else {
+                // Set volume and try to play
+                audio.volume = 0.4;
+                
+                const playPromise = audio.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        // Playing successfully
+                        btn.textContent = '🎵';
+                        btn.classList.remove('muted');
+                        status.textContent = '♪ Sailor Song playing...';
+                        status.style.display = 'block';
+                        musicPlaying = true;
+                        
+                        setTimeout(() => {
+                            status.style.display = 'none';
+                        }, 3000);
+                    }).catch(error => {
+                        // Autoplay blocked or other error
+                        console.log('Play error:', error);
+                        btn.textContent = '🔇';
+                        status.textContent = 'Click Start first, then try music!';
+                        status.style.display = 'block';
+                        
+                        // If audio not loaded, try reloading
+                        if (!audioLoaded) {
+                            audio.load();
+                        }
+                    });
+                }
+            }
+        }
+
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
+        function startGames() {
+            document.getElementById('progressBar').classList.add('show');
+            updateProgress();
+            showSection('game1');
+            currentGame = 1;
+            
+            // Try to autoplay music after user interaction (Start button)
+            const audio = document.getElementById('bgMusic');
+            audio.volume = 0.4;
+            audio.play().then(() => {
+                musicPlaying = true;
+                document.getElementById('musicBtn').textContent = '🎵';
+                document.getElementById('musicBtn').classList.remove('muted');
+                console.log('Music autoplayed after Start click');
+            }).catch(() => {
+                // Show hint to manually play
+                document.getElementById('musicStatus').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('musicStatus').style.display = 'none';
+                }, 5000);
+            });
+        }
+
+        function updateProgress() {
+            document.getElementById('progressText').textContent = gamesCompleted + '/4';
+            document.getElementById('progressFill').style.width = (gamesCompleted * 25) + '%';
+        }
+
+        function completeGame(gameNum) {
+            if (gameNum > gamesCompleted) {
+                gamesCompleted = gameNum;
+                updateProgress();
+            }
+        }
+
+        function nextGame(num) {
+            showSection('game' + num);
+            currentGame = num;
+            
+            if (num === 4) {
+                initTreasureHunt();
+            }
+        }
+
+        function changeWheel(index) {
+            wheels[index] = (wheels[index] + 1) % 10;
+            document.querySelectorAll('.wheel')[index].textContent = wheels[index];
+        }
+
+        function checkUnlock() {
+            const correct = [1, 5, 9];
+            const giftBox = document.getElementById('giftBox');
+            const feedback = document.getElementById('game1Feedback');
+            
+            if (wheels[0] === 1 && wheels[1] === 5 && wheels[2] === 9) {
+                giftBox.classList.add('open');
+                giftBox.textContent = '💖';
+                feedback.textContent = '🎉 Correct! The gift is unlocked!';
+                feedback.style.color = '#4caf50';
+                createConfetti();
+                
+                setTimeout(() => {
+                    document.getElementById('reward1').style.display = 'block';
+                    document.getElementById('next1').style.display = 'inline-block';
+                    completeGame(1);
+                }, 1000);
+            } else {
+                giftBox.classList.add('shake');
+                feedback.textContent = 'Almost! Try again 😝 (Hint: 15/9!)';
+                feedback.style.color = '#d81b60';
+                
+                setTimeout(() => {
+                    giftBox.classList.remove('shake');
+                }, 500);
+            }
+        }
+
+        function initDragAndDrop() {
+            const items = document.querySelectorAll('.decoration-item');
+            const cakeArea = document.getElementById('cakeArea');
+            
+            items.forEach(item => {
+                item.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.setData('emoji', item.dataset.emoji);
+                });
+                
+                item.addEventListener('touchstart', handleTouchStart, {passive: false});
+                item.addEventListener('touchmove', handleTouchMove, {passive: false});
+                item.addEventListener('touchend', handleTouchEnd);
+            });
+            
+            cakeArea.addEventListener('dragover', (e) => e.preventDefault());
+            cakeArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                const emoji = e.dataTransfer.getData('emoji');
+                placeDecoration(e.clientX, e.clientY, emoji);
+            });
+        }
+
+        let draggedItem = null;
+        let touchOffset = {x: 0, y: 0};
+
+        function handleTouchStart(e) {
+            e.preventDefault();
+            draggedItem = e.target;
+            const touch = e.touches[0];
+            const rect = draggedItem.getBoundingClientRect();
+            touchOffset.x = touch.clientX - rect.left;
+            touchOffset.y = touch.clientY - rect.top;
+            draggedItem.classList.add('dragging');
+        }
+
+        function handleTouchMove(e) {
+            e.preventDefault();
+            if (!draggedItem) return;
+            const touch = e.touches[0];
+            draggedItem.style.left = (touch.clientX - touchOffset.x) + 'px';
+            draggedItem.style.top = (touch.clientY - touchOffset.y) + 'px';
+        }
+
+        function handleTouchEnd(e) {
+            if (!draggedItem) return;
+            const touch = e.changedTouches[0];
+            const cakeArea = document.getElementById('cakeArea');
+            const rect = cakeArea.getBoundingClientRect();
+            
+            if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
+                touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+                placeDecoration(touch.clientX, touch.clientY, draggedItem.dataset.emoji);
+            }
+            
+            draggedItem.classList.remove('dragging');
+            draggedItem.style.left = '';
+            draggedItem.style.top = '';
+            draggedItem = null;
+        }
+
+        function placeDecoration(x, y, emoji) {
+            const cakeArea = document.getElementById('cakeArea');
+            const rect = cakeArea.getBoundingClientRect();
+            
+            const deco = document.createElement('div');
+            deco.className = 'placed-decoration';
+            deco.textContent = emoji;
+            deco.style.left = (x - rect.left - 20) + 'px';
+            deco.style.top = (y - rect.top - 20) + 'px';
+            
+            cakeArea.appendChild(deco);
+            decorationCount++;
+            
+            if (decorationCount >= 3) {
+                document.getElementById('doneBtn').classList.add('show');
+            }
+            
+            createSparkle(x, y);
+        }
+
+        function finishDecorating() {
+            document.getElementById('reward2').style.display = 'block';
+            document.getElementById('next2').style.display = 'inline-block';
+            document.getElementById('doneBtn').style.display = 'none';
+            completeGame(2);
+            createConfetti();
+        }
+
+        function initPinBalloon() {
+            const balloon = document.getElementById('balloon');
+            const board = document.getElementById('pinBoard');
+            let isDragging = false;
+            
+            balloon.addEventListener('mousedown', startDrag);
+            balloon.addEventListener('touchstart', startDrag, {passive: false});
+            
+            function startDrag(e) {
+                e.preventDefault();
+                isDragging = true;
+                balloon.style.cursor = 'grabbing';
+            }
+            
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('touchmove', drag, {passive: false});
+            document.addEventListener('mouseup', endDrag);
+            document.addEventListener('touchend', endDrag);
+            
+            function drag(e) {
+                if (!isDragging) return;
+                e.preventDefault();
+                
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                
+                const rect = board.getBoundingClientRect();
+                const x = clientX - rect.left - 30;
+                const y = clientY - rect.top - 30;
+                
+                balloon.style.left = x + 'px';
+                balloon.style.top = y + 'px';
+                balloon.style.bottom = 'auto';
+                balloon.style.transform = 'none';
+            }
+            
+            function endDrag() {
+                if (!isDragging) return;
+                isDragging = false;
+                balloon.style.cursor = 'grab';
+                
+                checkBalloonPlacement();
+            }
+        }
+
+        function checkBalloonPlacement() {
+            const balloon = document.getElementById('balloon');
+            const target = document.getElementById('targetZone');
+            const feedback = document.getElementById('game3Feedback');
+            
+            const ballRect = balloon.getBoundingClientRect();
+            const targetRect = target.getBoundingClientRect();
+            
+            const overlap = !(ballRect.right < targetRect.left || 
+                            ballRect.left > targetRect.right || 
+                            ballRect.bottom < targetRect.top || 
+                            ballRect.top > targetRect.bottom);
+            
+            if (overlap) {
+                feedback.textContent = '🎉 Perfect! You pinned it!';
+                feedback.style.color = '#4caf50';
+                document.getElementById('reward3').style.display = 'block';
+                document.getElementById('next3').style.display = 'inline-block';
+                completeGame(3);
+                createConfetti();
+                createFireworks();
+            } else {
+                triesLeft--;
+                document.getElementById('triesLeft').textContent = triesLeft;
+                
+                if (triesLeft <= 0) {
+                    feedback.textContent = 'Hint: Try the top right corner! 💝';
+                    target.style.border = '4px solid #ff0000';
+                } else {
+                    feedback.textContent = 'Almost! Try again ✨ (' + triesLeft + ' tries left)';
+                    feedback.style.color = '#ff9800';
+                }
+            }
+        }
+
+        function initTreasureHunt() {
+            const scene = document.getElementById('treasureScene');
+            scene.innerHTML = '';
+            treasuresFound = 0;
+            document.getElementById('treasureCount').textContent = '0';
+            
+            const treasures = ['💖', '💕', '💗', '💓', '💝', '✨', '🌟', '💫', '🎁', '🎀'];
+            const distractions = ['🎂', '🧁', '🎈', '🎉', '🎊', '🎁', '🎀', '🕯️', '🍰', '🎮'];
+            
+            treasures.forEach((t, i) => {
+                const el = document.createElement('div');
+                el.className = 'treasure-item';
+                el.textContent = t;
+                el.style.left = (10 + Math.random() * 80) + '%';
+                el.style.top = (10 + Math.random() * 80) + '%';
+                el.onclick = () => foundTreasure(el);
+                scene.appendChild(el);
+            });
+            
+            for (let i = 0; i < 8; i++) {
+                const el = document.createElement('div');
+                el.className = 'treasure-item';
+                el.textContent = distractions[i];
+                el.style.left = (10 + Math.random() * 80) + '%';
+                el.style.top = (10 + Math.random() * 80) + '%';
+                el.style.opacity = '0.7';
+                scene.appendChild(el);
+            }
+        }
+
+        function foundTreasure(el) {
+            if (el.classList.contains('found')) return;
+            
+            el.classList.add('found');
+            treasuresFound++;
+            document.getElementById('treasureCount').textContent = treasuresFound;
+            
+            createSparkle(
+                el.getBoundingClientRect().left + 15,
+                el.getBoundingClientRect().top + 15
+            );
+            
+            if (treasuresFound >= 10) {
+                setTimeout(() => {
+                    document.getElementById('reward4').style.display = 'block';
+                    document.getElementById('next4').style.display = 'inline-block';
+                    completeGame(4);
+                    createConfetti();
+                }, 500);
+            }
+        }
+
+        function showFinalCake() {
+            showSection('finalCake');
+            document.getElementById('progressBar').style.display = 'none';
+        }
+
+        function blowCandle(candle) {
+            if (candle.classList.contains('out')) return;
+            
+            candle.classList.add('out');
+            candlesBlown++;
+            
+            createSmoke(candle);
+            
+            if (candlesBlown >= 3) {
+                setTimeout(() => {
+                    showLoveLetter();
+                }, 1500);
+            }
+        }
+
+        function createSmoke(candle) {
+            const rect = candle.getBoundingClientRect();
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const smoke = document.createElement('div');
+                    smoke.textContent = '💨';
+                    smoke.style.position = 'fixed';
+                    smoke.style.left = rect.left + 'px';
+                    smoke.style.top = rect.top + 'px';
+                    smoke.style.fontSize = '20px';
+                    smoke.style.pointerEvents = 'none';
+                    smoke.style.animation = 'smoke 1s ease forwards';
+                    smoke.style.zIndex = '1000';
+                    document.body.appendChild(smoke);
+                    setTimeout(() => smoke.remove(), 1000);
+                }, i * 100);
+            }
+        }
+
+        function showLoveLetter() {
+            showSection('loveLetter');
+            document.getElementById('letterBox').classList.add('show');
+            startHeartsRain();
+            
+            const letter = `Ami really jani na kotha theke shuru korbo L. Ami tbh insta use o kortam na. And amr love er proti interest o chilona. Really! Ami bissash kortam na aisob e....But then you came into my life!!! God was really on my side when He wrote you into my story. Right at a time, I didn't even know I needed you. Amr akhono mone ase gc teh porichoy hoisilo 👽. Then nadishar shate olpo kotha hoito amr dm e ar tmi amk akdin message disila diye bolsila je-"nadisha bolse tmi naki onk innocent dekte. Koi dekhi toh tmk." Aita diye e amder dm e kotha shuru hoi!! Tmi amk nadishar shate ship korta 🤡😭. Nadishar copy teo naki likhe ashta je N+Z 🐸💔. Erpor aste aste baad diye diso or kotha 🗿. Then oije kutta Tamim ta tmk onk jalaito dm e msg kore ar tmi amk bolta je "jao jao tamim er shate kotha bolo. O amk jalaitese msg diye diye. Oke na koro amk message dite." Then ami ar tmi onk kotha boltam! Like onk beshi 👽. Tmiyo active thakta onk tokhon ar amiyo 🥸. Amder onk kichu milto ar tmr shate kotha bole onk moja paitam! Lagto je jakh keo toh atleast amk bujhe.... Amr moton kaoke paisi!!!👾💖. Then aste aste tmk pochondo o hoye jai 😺🩷. Ami onk vabsilam bolbo ki bolbona but bole disilam 😭🤡. Bhai kemne je atoh sahosh paisilam bolar jnno!!☠️. Tmk onk force kortam je matching pfp diteh then story teh mention diteh.... But oisob moteo thik kori nai 😞✋. Love show off korar jinish na oita ami pore jeye realize korsi 🤧🤧. Ager kotha guli baad di. Oisob pura bolte gele tmr amr msg ta porte 3 din laiga jabe 👽. Birthday ar enjoy kora lagbena!!
+
+Tohh.. akhoner kotha teh ashi!!🐍. Honestly ami nijeo jani na kivabe ami tmk peye gesi!🌟. Ami onk appreciate kori je tmi amr life e ascho!!! Amr life black and white screen er moton chilo ar tmi eshe oita ke colourful kore diso!!! 🍃. Ami thik kore nijer moner kotha prokash korte partesina msg gula teh bhai 😿. But ami sotti tmk peye onk beshi lucky feel kori! Tmi always amr pashe thako sob kichu teh! Then amk comfort o feel korao! Tmk chara je amr ki hoito bhai!🙆🤦. Last 1 month e amra aro onk beshiii closeee hoye gesi really!! Onkk beshi!
+
+Bangla teh bolte partesina, English ei boli 🙁. You are the one who completes me! Tmk chara ami kono future vabtei parina tbh!! Jodi tmi amr kopale likhao na thako, ami Allah er kache attoh dua korbo je Allah tmk amr banay dibe In'sha'Allah 😺. Tmk ami kemne bujhay je ami tmk kotota love kori 😭. Tmi amr kache kotota special!!! Tmr shate katano prottek ta moment e special! Shuru theke sesh porjonto sob mone ase amr! You are in my heart ❤️‍🩹. You shall be in there FOREVER. My greatest wish is that you are HAPPY when you think of ME, I am when I think of YOU. You are a princess!💓. But not every princess wears a crown. Some rule hearts, the way you rule my heart ✨. Nothing is coincidence. Every soul we met is written in our destiny. To teach us, to heal us or to love us 🤧. Tmi amr taqdeer e likha chila 💘. Remember!! I get tired of everything sometimes, But never of you. Even when I world exhausts me, you're all I need 💯🪼. Ami...aikhane bole tmk bujhaiteo parbona ar sesh o korte parbona bole je tmi amr kache kotota important 😞. Always boli and abar o boltesi je- YOU make me feel like home lamha 🫶.
+
+15 hoye gela!! Ami always jateh tmr birthday teh tmk wish korte pari ar amra jateh kokhono alada na hoye jai aita e dua korbo!!! Tmi jateh always happy thako and always jateh mone rakho je ami tmr pashe always asi!! Enjoy koro birthday! Tmk kono gift diteh partesina 😭. I really wanted to gift you something 🙁. But sadly amr ar tmr distance ta onk beshi 🫠. Maybe ai distance tar karone e amder bond atoh strong 🪼😺. Bhai onk boro hoye gese 🥸. Thak ar barabona! Always stay strong and stay healthy!!! And amr shate jateh sob kichu share koro always ✌️. I really like to listen to you 🍃.
+
+Happy Birthday My Love! 🎂💖✨
+
+- Yours Forever 💕`;
+            
+            typeWriter(letter, 0);
+        }
+
+        function typeWriter(text, index) {
+            if (index < text.length) {
+                document.getElementById('letterText').textContent += text.charAt(index);
+                setTimeout(() => typeWriter(text, index + 1), 30);
+                
+                const letterBox = document.getElementById('letterBox');
+                letterBox.scrollTop = letterBox.scrollHeight;
+            } else {
+                document.getElementById('cursor').style.display = 'none';
+            }
+        }
+
+        function createConfetti() {
+            const colors = ['#ff4081', '#e040fb', '#ffd700', '#ff6b6b', '#4ecdc4'];
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+
+        function createSparkle(x, y) {
+            const sparkle = document.createElement('div');
+            sparkle.textContent = '✨';
+            sparkle.style.position = 'fixed';
+            sparkle.style.left = x + 'px';
+            sparkle.style.top = y + 'px';
+            sparkle.style.fontSize = '30px';
+            sparkle.style.pointerEvents = 'none';
+            sparkle.style.zIndex = '1000';
+            sparkle.style.animation = 'popIn 0.5s ease forwards';
+            document.body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 500);
+        }
+
+        function createFireworks() {
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const x = 20 + Math.random() * 60;
+                    const y = 20 + Math.random() * 40;
+                    for (let j = 0; j < 20; j++) {
+                        const particle = document.createElement('div');
+                        particle.style.position = 'fixed';
+                        particle.style.left = x + '%';
+                        particle.style.top = y + '%';
+                        particle.style.width = '8px';
+                        particle.style.height = '8px';
+                        particle.style.borderRadius = '50%';
+                        particle.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                        particle.style.pointerEvents = 'none';
+                        particle.style.zIndex = '999';
+                        
+                        const angle = (Math.PI * 2 * j) / 20;
+                        const velocity = 100 + Math.random() * 100;
+                        const tx = Math.cos(angle) * velocity;
+                        const ty = Math.sin(angle) * velocity;
+                        
+                        particle.style.animation = 'none';
+                        particle.style.transition = 'all 1s ease-out';
+                        document.body.appendChild(particle);
+                        
+                        setTimeout(() => {
+                            particle.style.transform = `translate(${tx}px, ${ty}px)`;
+                            particle.style.opacity = '0';
+                        }, 10);
+                        
+                        setTimeout(() => particle.remove(), 1000);
+                    }
+                }, i * 300);
+            }
+        }
+
+        function startHeartsRain() {
+            const container = document.getElementById('heartsRain');
+            container.style.display = 'block';
+            
+            const hearts = ['💖', '💕', '💗', '💓', '💝', '💘', '💞'];
+            
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart-drop';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.fontSize = (20 + Math.random() * 20) + 'px';
+                container.appendChild(heart);
+                
+                setTimeout(() => heart.remove(), 3000);
+            }, 200);
+        }
+
+        initDragAndDrop();
+        initPinBalloon();
+    </script>
+</body>
+</html>
+            
