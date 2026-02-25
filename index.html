@@ -1,264 +1,653 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday Lamha Afrin 🎂💖</title>
-<style>
-  /* Reset and body */
-  * {margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', sans-serif;}
-  body {min-height:100vh; display:flex; justify-content:center; align-items:center; background: linear-gradient(135deg,#ff9ec4,#ffd6ec); overflow-x:hidden; color:#333;}
-  .container {width:100%; max-width:500px; text-align:center; padding:20px;}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Lamha Afrin 🎂💖</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  /* Landing screen */
-  #landing {display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; transition:opacity 0.5s;}
-  #landing h1 {font-size:2.5rem; color:#fff; text-shadow:2px 2px 10px #ff8cd6; margin-bottom:10px;}
-  #landing p {font-size:1rem; color:#fff; margin-bottom:20px;}
-  #startBtn {padding:15px 30px; font-size:1.2rem; border:none; border-radius:50px; background: #ff8cd6; color:#fff; cursor:pointer; box-shadow:0 5px 15px rgba(0,0,0,0.2); transition:0.3s;}
-  #startBtn:hover {background:#ff6cb3; transform:scale(1.05);}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #f3e5f5 25%, #fce4ec 50%, #f8bbd0 75%, #e1bee7 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
 
-  /* Game screens */
-  .game {display:none; flex-direction:column; align-items:center; min-height:80vh; padding-top:20px;}
-  .reward {margin-top:20px; font-size:1.1rem; color:#ff1493; animation:fadeIn 1s forwards;}
-  @keyframes fadeIn {from{opacity:0;} to{opacity:1;}}
+        /* Floating hearts animation */
+        .heart {
+            position: fixed;
+            font-size: 24px;
+            animation: float 15s infinite linear;
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: 0;
+        }
 
-  /* Gift Unlock */
-  #giftBox {width:150px; height:150px; background:#ff6cb3; border-radius:15px; display:flex; justify-content:center; align-items:center; font-size:2rem; color:#fff; cursor:pointer; position:relative;}
-  .wheel {width:40px; height:60px; background:#fff; margin:0 5px; border-radius:5px; display:inline-flex; justify-content:center; align-items:center; font-weight:bold; cursor:pointer; user-select:none;}
-  #giftControls {margin-top:15px;}
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
 
-  /* Cake Decorate */
-  #cake {width:200px; height:150px; background:#ffe0f0; border-radius:0 0 50px 50px; position:relative; margin-top:20px;}
-  .decor {width:30px; height:30px; border-radius:50%; position:absolute; cursor:pointer;}
-  #decorItems {display:flex; justify-content:center; margin-top:15px;}
-  .decorBtn {padding:10px; margin:5px; border-radius:50%; cursor:pointer; border:none; font-size:1rem; color:#fff;}
-  .candle {background:#fff;} .heart {background:#ff1493;} .strawberry {background:#ff4d4d;} .balloon {background:#ff99cc;}
+        .sparkle {
+            position: fixed;
+            font-size: 20px;
+            animation: sparkle 10s infinite linear;
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 0;
+        }
 
-  /* Pin the Balloon */
-  #balloonBoard {width:250px; height:300px; background:#ffe0f0; border-radius:15px; position:relative; margin-top:20px;}
-  #balloon {width:50px; height:70px; background:#ff1493; border-radius:50%; position:absolute; top:20px; left:100px; cursor:grab;}
-  
-  /* Treasure Hunt */
-  #treasureBoard {width:300px; height:300px; background:#ffe0f0; border-radius:15px; position:relative; margin-top:20px;}
-  .treasure {width:40px; height:40px; position:absolute; cursor:pointer; border-radius:50%; display:flex; justify-content:center; align-items:center; font-size:1.5rem;}
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
 
-  /* Cake & candles */
-  #finalCake {display:none; margin-top:20px; position:relative;}
-  #cakeTop {width:200px; height:150px; background:#ffe0f0; border-radius:0 0 50px 50px; position:relative; margin:auto;}
-  .candleFinal {width:15px; height:40px; background:#fff; position:absolute; top:-40px; left:50%; transform:translateX(-50%);}
-  .flame {width:10px; height:15px; background:orange; border-radius:50%; position:absolute; top:-15px; left:50%; transform:translateX(-50%);}
-  #blowBtn {margin-top:10px; padding:10px 20px; border:none; border-radius:30px; background:#ff1493; color:#fff; cursor:pointer;}
+        /* Music toggle */
+        .music-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
 
-  /* Final Letter */
-  #finalLetter {display:none; margin-top:20px; background:#fff0f5; padding:15px; border-radius:15px; max-height:400px; overflow-y:auto; text-align:left; font-size:0.9rem; line-height:1.4;}
-</style>
+        .music-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Sections */
+        .section {
+            display: none;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Landing Screen */
+        .landing-container {
+            text-align: center;
+            animation: fadeInUp 1s ease;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #d81b60;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 3px 3px 6px rgba(0,0,0,0.1), 0 0 20px #f8bbd0; }
+            to { text-shadow: 3px 3px 6px rgba(0,0,0,0.1), 0 0 30px #f48fb1, 0 0 40px #f8bbd0; }
+        }
+
+        .subtext {
+            font-size: 1.3em;
+            color: #880e4f;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        .start-btn {
+            background: linear-gradient(45deg, #ff4081, #e040fb);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            font-size: 1.5em;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255, 64, 129, 0.4);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .start-btn:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 15px 40px rgba(255, 64, 129, 0.6);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            z-index: 100;
+            display: none;
+        }
+
+        .progress-container.show {
+            display: block;
+        }
+
+        .progress-bar {
+            width: 200px;
+            height: 10px;
+            background: #fce4ec;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff4081, #e040fb);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        /* Game Containers */
+        .game-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            position: relative;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .game-title {
+            color: #ad1457;
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .game-hint {
+            color: #880e4f;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        /* Game 1: Unlock Gift */
+        .gift-box {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #ff4081, #e040fb);
+            border-radius: 20px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .gift-box.shake {
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-20px) rotate(-5deg); }
+            75% { transform: translateX(20px) rotate(5deg); }
+        }
+
+        .gift-box.open {
+            animation: openGift 1s ease forwards;
+        }
+
+        @keyframes openGift {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2) rotate(10deg); }
+            100% { transform: scale(1) rotate(0deg); background: #ffd700; }
+        }
+
+        .wheels-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .wheel {
+            width: 80px;
+            height: 80px;
+            border: 4px solid #ff4081;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            font-weight: bold;
+            color: #ad1457;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .wheel:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 20px rgba(255, 64, 129, 0.3);
+        }
+
+        .unlock-btn {
+            background: linear-gradient(45deg, #ff4081, #e040fb);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 30px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+            transition: all 0.3s ease;
+        }
+
+        .unlock-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .feedback {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #880e4f;
+            min-height: 30px;
+        }
+
+        .reward-message {
+            background: linear-gradient(135deg, #fff3e0, #fce4ec);
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 30px;
+            text-align: center;
+            font-size: 1.3em;
+            color: #ad1457;
+            display: none;
+            animation: fadeInUp 0.5s ease;
+            border: 3px solid #ff4081;
+        }
+
+        .next-btn {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Game 2: Decorate Cake */
+        .cake-area {
+            width: 300px;
+            height: 300px;
+            background: #fff8e1;
+            border-radius: 20px;
+            margin: 0 auto 20px;
+            position: relative;
+            border: 4px dashed #ffcc80;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .base-cake {
+            font-size: 150px;
+            position: absolute;
+        }
+
+        .decorations-palette {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .decoration-item {
+            font-size: 40px;
+            cursor: grab;
+            padding: 10px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+        }
+
+        .decoration-item:hover {
+            transform: scale(1.2);
+        }
+
+        .decoration-item.dragging {
+            cursor: grabbing;
+            position: fixed;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .placed-decoration {
+            position: absolute;
+            font-size: 40px;
+            cursor: move;
+            animation: popIn 0.3s ease;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            80% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .done-btn {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 30px;
+            cursor: pointer;
+            display: none;
+            margin: 20px auto 0;
+        }
+
+        .done-btn.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Game 3: Pin the Balloon */
+        .pin-board {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            border-radius: 20px;
+            position: relative;
+            margin-bottom: 20px;
+            overflow: hidden;
+            border: 4px solid #ba68c8;
+        }
+
+        .target-zone {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 4px dashed #e040fb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+
+        .draggable-balloon {
+            font-size: 60px;
+            cursor: grab;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: transform 0.2s ease;
+            z-index: 10;
+        }
+
+        .draggable-balloon:active {
+            cursor: grabbing;
+        }
+
+        .tries-display {
+            text-align: center;
+            font-size: 1.2em;
+            color: #880e4f;
+            margin-bottom: 10px;
+        }
+
+        /* Game 4: Treasure Hunt */
+        .treasure-scene {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #fff3e0, #fce4ec, #f3e5f5);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 4px solid #ffab91;
+        }
+
+        .treasure-item {
+            position: absolute;
+            font-size: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .treasure-item:hover {
+            transform: scale(1.3);
+        }
+
+        .treasure-item.found {
+            animation: foundTreasure 0.5s ease forwards;
+        }
+
+        @keyframes foundTreasure {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.5) rotate(360deg); }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        .treasure-counter {
+            text-align: center;
+            font-size: 1.3em;
+            color: #ad1457;
+            margin-bottom: 20px;
+        }
+
+        /* Final Cake Section */
+        .final-cake-container {
+            text-align: center;
+            animation: fadeIn 1s ease;
+        }
+
+        .final-cake {
+            font-size: 200px;
+            position: relative;
+            display: inline-block;
+            margin: 30px 0;
+        }
+
+        .candle {
+            position: absolute;
+            font-size: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: flicker 1s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        .candle.out {
+            animation: none;
+            filter: grayscale(100%);
+            opacity: 0.5;
+        }
+
+        .candle.out::after {
+            content: '💨';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 20px;
+            animation: smoke 1s ease forwards;
+        }
+
+        @keyframes smoke {
+            0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            100% { opacity: 0; transform: translateX(-50%) translateY(-30px); }
+        }
+
+        .blow-instruction {
+            font-size: 1.3em;
+            color: #880e4f;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        /* Love Letter */
+        .letter-container {
+            display: none;
+            max-width: 800px;
+            width: 100%;
+            background: linear-gradient(135deg, #fff8e1, #fce4ec);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            border: 3px solid #ff4081;
+            position: relative;
+            animation: fadeIn 1s ease;
+        }
+
+        .letter-container.show {
+            display: block;
+        }
+
+        .letter-header {
+            text-align: center;
+            font-size: 2em;
+            color: #ad1457;
+            margin-bottom: 30px;
+            font-family: 'Georgia', serif;
+        }
+
+        .letter-content {
+            font-size: 1.1em;
+            line-height: 2;
+            color: #4a148c;
+            font-family: 'Georgia', serif;
+            white-space: pre-wrap;
+            text-align: justify;
+        }
+
+        .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1.2em;
+            background: #ad1457;
+            animation: blink 1s infinite;
+            margin-left: 5px;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .hearts-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            display: none;
+        }
+
+        .heart-drop {
+            position: absolute;
+            font-size: 24px;
+            animation: drop 3s ease-in forwards;
+        }
+
+        @keyframes drop {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            animation: confetti-fall 3s ease-out forwards;
+            z-index: 999;
+        }
+
+        @keyframes confetti-fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 { font-size: 2em; }
+            .game-container { padding: 20px; }
+            .cake-area { width: 250px; height: 250px; }
+            .base-cake { font-size: 100px; }
+            .final-cake { font-size: 150px; }
+        }
+    </style>
 </head>
 <body>
-
-<div class="container">
-
-  <!-- Landing -->
-  <div id="landing">
-    <h1>Happy Birthday Lamha Afrin 🎂💖</h1>
-    <p>Your surprise birthday adventure starts now…</p>
-    <button id="startBtn">Start ✨</button>
-  </div>
-
-  <!-- Game 1: Gift Unlock -->
-  <div class="game" id="game1">
-    <h2>Unlock Your Birthday Gift 🎁</h2>
-    <div id="giftBox">🎁</div>
-    <div id="giftControls">
-      <button id="unlockBtn">Try Unlock</button>
-    </div>
-    <div class="reward" id="reward1"></div>
-  </div>
-
-  <!-- Game 2: Cake Decorate -->
-  <div class="game" id="game2">
-    <h2>Decorate the Birthday Cake 🎂</h2>
-    <div id="cake"></div>
-    <div id="decorItems">
-      <button class="decorBtn candle">🕯️</button>
-      <button class="decorBtn heart">💖</button>
-      <button class="decorBtn strawberry">🍓</button>
-      <button class="decorBtn balloon">🎈</button>
-    </div>
-    <div class="reward" id="reward2"></div>
-  </div>
-
-  <!-- Game 3: Pin the Balloon -->
-  <div class="game" id="game3">
-    <h2>Pin the Balloon 🎈</h2>
-    <div id="balloonBoard">
-      <div id="balloon"></div>
-    </div>
-    <div class="reward" id="reward3"></div>
-  </div>
-
-  <!-- Game 4: Treasure Hunt -->
-  <div class="game" id="game4">
-    <h2>Find All Birthday Treasures 🕵️‍♀️</h2>
-    <div id="treasureBoard"></div>
-    <div class="reward" id="reward4"></div>
-  </div>
-
-  <!-- Final Cake -->
-  <div id="finalCake">
-    <h2>Blow the Candles! 🕯️</h2>
-    <div id="cakeTop">
-      <div class="candleFinal"><div class="flame"></div></div>
-    </div>
-    <button id="blowBtn">Blow Candles</button>
-  </div>
-
-  <!-- Final Letter -->
-  <div id="finalLetter">
-Ami really jani na kotha theke shuru korbo L. Ami tbh insta use o kortam na. And amr love er proti interest o chilona. Really! Ami bissash kortam na aisob e....
-
-But then you came into my life!!! God was really on my side when He wrote you into my story.Right at a time,I didn't even know I needed you.
-
-Amr akhono mone ase gc teh porichoy hoisilo 👽. Then nadishar shate olpo kotha hoito amr dm e ar tmi amk akdin message disila diye bolsila je-"nadisha bolse tmi naki onk innocent dekte. Koi dekhi toh tmk."
-
-Aita diye e amder dm e kotha shuru hoi!! Tmi amk nadishar shate ship korta 🤡😭. Nadishar copy teo naki likhe ashta je N+Z 🐸💔. Erpor aste aste baad diye diso or kotha 🗿.
-
-Then oije kutta Tamim ta tmk onk jalaito dm e msg kore ar tmi amk bolta je "jao jao tamim er shate kotha bolo. O amk jalaitese msg diye diye. Oke na koro amk message dite."
-
-Then ami ar tmi onk kotha boltam! Like onk beshi 👽. Tmiyo active thakta onk tokhon ar amiyo 🥸. Amder onk kichu milto ar tmr shate kotha bole onk moja paitam!
-
-Lagto je jakh keo toh atleast amk bujhe.... Amr moton kaoke paisi!!!👾💖.
-
-Then aste aste tmk pochondo o hoye jai 😺🩷. Ami onk vabsilam bolbo ki bolbona but bole disilam 😭🤡. Bhai kemne je atoh sahosh paisilam bolar jnno!!☠️.
-
-Tmk onk force kortam je matching pfp diteh then story teh mention diteh.... But oisob moteo thik kori nai 😞✋. Love show off korar jinish na oita ami pore jeye realize korsi 🤧🤧.
-
-Ager kotha guli baad di. Oisob pura bolte gele tmr amr msg ta porte 3 din laiga jabe 👽. Birthday ar enjoy kora lagbena!!
-
-Tohh.. akhoner kotha teh ashi!!🐍.
-
-Honestly ami nijeo jani na kivabe ami tmk peye gesi!🌟. Ami onk appreciate kori je tmi amr life e ascho!!!
-
-Amr life black and white screen er moton chilo ar tmi eshe oita ke colourful kore diso!!! 🍃.
-
-Amiyo thik kore nijer moner kotha prokash korte partesina msg gula teh bhai 😿. But ami sotti tmk peye onk beshi lucky feel kori!!
-
-Tmi always amr pashe thako sob kichu teh! Then amk comfort o feel korao!
-
-Tmk chara je amr ki hoito bhai!🙆🤦.
-
-Last 1 month e amra aro onk beshiii closeee hoye gesi really!! Onkk beshi!
-
-Bangla teh bolte partesina, English ei boli 🙁. You are the one who completes me! Tmk chara ami kono future vabtei parina tbh!!
-
-Jodi tmi amr kopale likhao na thako,ami Allah er kache attoh dua korbo je Allah tmk amr banay dibe In'sha'Allah 😺.
-
-Tmk ami kemne bujhay je ami tmk kotota love kori 😭. Tmi amr kache kotota special!!! Tmr shate katano prottek ta moment e special! Shuru theke sesh porjonto sob mone ase amr! You are in my heart ❤️‍🩹. You shall be in there FOREVER. My greatest wish is that you are HAPPY when you think of ME,I am when I think of YOU. You are a princess!💓.
-
-But not every princess wears a crown. Some rule hearts, the way you rule my heart ✨.
-
-Nothing is coincidence. Every soul we met is written in our destiny. To teach us,to heal us or to love us 🤧. Tmi amr taqdeer e likha chila 💘.
-
-Remember!! I get tired of everything sometimes,But never of you. Even when I world exhausts me,you're all I need 💯🪼.
-
-Ami...aikhane bole tmk bujhaiteo parbona ar sesh o korte parbona bole je tmi amr kache kotota important 😞. Always boli and abar o boltesi je- YOU make me feel like home lamha 🫶.
-
-15 hoye gela!! Ami always jateh tmr birthday teh tmk wish korte pari ar amra jateh kokhono alada na hoye jai aita e dua korbo!!! Tmi jateh always happy thako and always jateh mone rakho je ami tmr pashe always asi!! Enjoy koro birthday! Tmk kono gift diteh partesina 😭. I really wanted to gift you something 🙁. But sadly amr ar tmr distance ta onk beshi 🫠. Maybe ai distance tar karone e amder bond atoh strong 🪼😺. Bhai onk boro hoye gese 🥸. Thak ar barabona! Always stay strong and stay healthy!!! And amr shate jateh sob kichu share koro always ✌️. I really like to listen to you 🍃
-</div>
-
-</div>
-
-<script>
-  const startBtn = document.getElementById('startBtn');
-  const landing = document.getElementById('landing');
-  const game1 = document.getElementById('game1');
-  const game2 = document.getElementById('game2');
-  const game3 = document.getElementById('game3');
-  const game4 = document.getElementById('game4');
-  const reward1 = document.getElementById('reward1');
-  const reward2 = document.getElementById('reward2');
-  const reward3 = document.getElementById('reward3');
-  const reward4 = document.getElementById('reward4');
-  const finalCake = document.getElementById('finalCake');
-  const blowBtn = document.getElementById('blowBtn');
-  const finalLetter = document.getElementById('finalLetter');
-
-  // Start
-  startBtn.onclick = ()=>{
-    landing.style.display='none';
-    game1.style.display='flex';
-  }
-
-  // Game 1: Gift Unlock
-  document.getElementById('unlockBtn').onclick = ()=>{
-    reward1.innerText="You just unlocked my heart 💖… and it’s all yours, Lamha 💫";
-    setTimeout(()=>{game1.style.display='none'; game2.style.display='flex';},1500);
-  }
-
-  // Game 2: Cake Decorate
-  const cake = document.getElementById('cake');
-  let placed=0;
-  document.querySelectorAll('.decorBtn').forEach(btn=>{
-    btn.onclick = ()=>{
-      const div = document.createElement('div');
-      div.className='decor';
-      div.style.background=btn.innerText==='💖'?'#ff1493':btn.innerText==='🕯️'?'#fff':btn.innerText==='🍓'?'#ff4d4d':'#ff99cc';
-      div.style.left=Math.random()*150+'px';
-      div.style.top=Math.random()*100+'px';
-      cake.appendChild(div);
-      placed++;
-      if(placed>=3){
-        reward2.innerText="Every decoration reminds me of you 🫶… you make everything more beautiful 💞";
-        setTimeout(()=>{game2.style.display='none'; game3.style.display='flex';},1500);
-      }
-    }
-  });
-
-  // Game 3: Pin Balloon
-  const balloon = document.getElementById('balloon');
-  let balloonPlaced=false;
-  balloon.onmousedown = (e)=>{
-    e.preventDefault();
-    const move = (ev)=>{
-      balloon.style.left = ev.clientX - balloon.offsetWidth/2 + 'px';
-      balloon.style.top = ev.clientY - balloon.offsetHeight/2 + 'px';
-    }
-    document.addEventListener('mousemove',move);
-    document.addEventListener('mouseup',()=>{
-      document.removeEventListener('mousemove',move);
-      if(balloon.offsetTop>180 && balloon.offsetLeft>80 && balloon.offsetLeft<180){
-        reward3.innerText="You pinned it perfectly, just like you’ve pinned yourself in my heart 💖✨";
-        setTimeout(()=>{game3.style.display='none'; game4.style.display='flex';},1500);
-      }
-    },{once:true});
-  }
-
-  // Game 4: Treasure Hunt
-  const treasureBoard = document.getElementById('treasureBoard');
-  let found=0;
-  for(let i=0;i<10;i++){
-    const t = document.createElement('div');
-    t.className='treasure';
-    t.style.left=Math.random()*250+'px';
-    t.style.top=Math.random()*250+'px';
-    t.innerText='💖';
-    t.onclick = ()=>{
-      t.style.display='none';
-      found++;
-      if(found>=10){
-        reward4.innerText="Every treasure I hide is a little piece of my heart for you 💞… you found them all, Lamha 💖";
-        setTimeout(()=>{game4.style.display='none'; finalCake.style.display='block';},1500);
-      }
-    }
-    treasureBoard.appendChild(t);
-  }
-
-  // Blow Candles
-  blowBtn.onclick=()=>{
-    document.querySelector('.flame').style.display='none';
-    blowBtn.style.display='none';
-    finalLetter.style.display='block';
-    finalLetter.scrollIntoView({behavior:'smooth'});
-  }
-</script>
-</body>
-</html>
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="data:audio/wav;base64,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
+          
