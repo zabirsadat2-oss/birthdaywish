@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Lamha Afrin 🎂💖</title>
+<style>
+  /* Reset and body */
+  * {margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', sans-serif;}
+  body {min-height:100vh; display:flex; justify-content:center; align-items:center; background: linear-gradient(135deg,#ff9ec4,#ffd6ec); overflow-x:hidden; color:#333;}
+  .container {width:100%; max-width:500px; text-align:center; padding:20px;}
+
+  /* Landing screen */
+  #landing {display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; transition:opacity 0.5s;}
+  #landing h1 {font-size:2.5rem; color:#fff; text-shadow:2px 2px 10px #ff8cd6; margin-bottom:10px;}
+  #landing p {font-size:1rem; color:#fff; margin-bottom:20px;}
+  #startBtn {padding:15px 30px; font-size:1.2rem; border:none; border-radius:50px; background: #ff8cd6; color:#fff; cursor:pointer; box-shadow:0 5px 15px rgba(0,0,0,0.2); transition:0.3s;}
+  #startBtn:hover {background:#ff6cb3; transform:scale(1.05);}
+
+  /* Game screens */
+  .game {display:none; flex-direction:column; align-items:center; min-height:80vh; padding-top:20px;}
+  .reward {margin-top:20px; font-size:1.1rem; color:#ff1493; animation:fadeIn 1s forwards;}
+  @keyframes fadeIn {from{opacity:0;} to{opacity:1;}}
+
+  /* Gift Unlock */
+  #giftBox {width:150px; height:150px; background:#ff6cb3; border-radius:15px; display:flex; justify-content:center; align-items:center; font-size:2rem; color:#fff; cursor:pointer; position:relative;}
+  .wheel {width:40px; height:60px; background:#fff; margin:0 5px; border-radius:5px; display:inline-flex; justify-content:center; align-items:center; font-weight:bold; cursor:pointer; user-select:none;}
+  #giftControls {margin-top:15px;}
+
+  /* Cake Decorate */
+  #cake {width:200px; height:150px; background:#ffe0f0; border-radius:0 0 50px 50px; position:relative; margin-top:20px;}
+  .decor {width:30px; height:30px; border-radius:50%; position:absolute; cursor:pointer;}
+  #decorItems {display:flex; justify-content:center; margin-top:15px;}
+  .decorBtn {padding:10px; margin:5px; border-radius:50%; cursor:pointer; border:none; font-size:1rem; color:#fff;}
+  .candle {background:#fff;} .heart {background:#ff1493;} .strawberry {background:#ff4d4d;} .balloon {background:#ff99cc;}
+
+  /* Pin the Balloon */
+  #balloonBoard {width:250px; height:300px; background:#ffe0f0; border-radius:15px; position:relative; margin-top:20px;}
+  #balloon {width:50px; height:70px; background:#ff1493; border-radius:50%; position:absolute; top:20px; left:100px; cursor:grab;}
+  
+  /* Treasure Hunt */
+  #treasureBoard {width:300px; height:300px; background:#ffe0f0; border-radius:15px; position:relative; margin-top:20px;}
+  .treasure {width:40px; height:40px; position:absolute; cursor:pointer; border-radius:50%; display:flex; justify-content:center; align-items:center; font-size:1.5rem;}
+
+  /* Cake & candles */
+  #finalCake {display:none; margin-top:20px; position:relative;}
+  #cakeTop {width:200px; height:150px; background:#ffe0f0; border-radius:0 0 50px 50px; position:relative; margin:auto;}
+  .candleFinal {width:15px; height:40px; background:#fff; position:absolute; top:-40px; left:50%; transform:translateX(-50%);}
+  .flame {width:10px; height:15px; background:orange; border-radius:50%; position:absolute; top:-15px; left:50%; transform:translateX(-50%);}
+  #blowBtn {margin-top:10px; padding:10px 20px; border:none; border-radius:30px; background:#ff1493; color:#fff; cursor:pointer;}
+
+  /* Final Letter */
+  #finalLetter {display:none; margin-top:20px; background:#fff0f5; padding:15px; border-radius:15px; max-height:400px; overflow-y:auto; text-align:left; font-size:0.9rem; line-height:1.4;}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Landing -->
+  <div id="landing">
+    <h1>Happy Birthday Lamha Afrin 🎂💖</h1>
+    <p>Your surprise birthday adventure starts now…</p>
+    <button id="startBtn">Start ✨</button>
+  </div>
+
+  <!-- Game 1: Gift Unlock -->
+  <div class="game" id="game1">
+    <h2>Unlock Your Birthday Gift 🎁</h2>
+    <div id="giftBox">🎁</div>
+    <div id="giftControls">
+      <button id="unlockBtn">Try Unlock</button>
+    </div>
+    <div class="reward" id="reward1"></div>
+  </div>
+
+  <!-- Game 2: Cake Decorate -->
+  <div class="game" id="game2">
+    <h2>Decorate the Birthday Cake 🎂</h2>
+    <div id="cake"></div>
+    <div id="decorItems">
+      <button class="decorBtn candle">🕯️</button>
+      <button class="decorBtn heart">💖</button>
+      <button class="decorBtn strawberry">🍓</button>
+      <button class="decorBtn balloon">🎈</button>
+    </div>
+    <div class="reward" id="reward2"></div>
+  </div>
+
+  <!-- Game 3: Pin the Balloon -->
+  <div class="game" id="game3">
+    <h2>Pin the Balloon 🎈</h2>
+    <div id="balloonBoard">
+      <div id="balloon"></div>
+    </div>
+    <div class="reward" id="reward3"></div>
+  </div>
+
+  <!-- Game 4: Treasure Hunt -->
+  <div class="game" id="game4">
+    <h2>Find All Birthday Treasures 🕵️‍♀️</h2>
+    <div id="treasureBoard"></div>
+    <div class="reward" id="reward4"></div>
+  </div>
+
+  <!-- Final Cake -->
+  <div id="finalCake">
+    <h2>Blow the Candles! 🕯️</h2>
+    <div id="cakeTop">
+      <div class="candleFinal"><div class="flame"></div></div>
+    </div>
+    <button id="blowBtn">Blow Candles</button>
+  </div>
+
+  <!-- Final Letter -->
+  <div id="finalLetter">
+Ami really jani na kotha theke shuru korbo L. Ami tbh insta use o kortam na. And amr love er proti interest o chilona. Really! Ami bissash kortam na aisob e....
+
+But then you came into my life!!! God was really on my side when He wrote you into my story.Right at a time,I didn't even know I needed you.
+
+Amr akhono mone ase gc teh porichoy hoisilo 👽. Then nadishar shate olpo kotha hoito amr dm e ar tmi amk akdin message disila diye bolsila je-"nadisha bolse tmi naki onk innocent dekte. Koi dekhi toh tmk."
+
+Aita diye e amder dm e kotha shuru hoi!! Tmi amk nadishar shate ship korta 🤡😭. Nadishar copy teo naki likhe ashta je N+Z 🐸💔. Erpor aste aste baad diye diso or kotha 🗿.
+
+Then oije kutta Tamim ta tmk onk jalaito dm e msg kore ar tmi amk bolta je "jao jao tamim er shate kotha bolo. O amk jalaitese msg diye diye. Oke na koro amk message dite."
+
+Then ami ar tmi onk kotha boltam! Like onk beshi 👽. Tmiyo active thakta onk tokhon ar amiyo 🥸. Amder onk kichu milto ar tmr shate kotha bole onk moja paitam!
+
+Lagto je jakh keo toh atleast amk bujhe.... Amr moton kaoke paisi!!!👾💖.
+
+Then aste aste tmk pochondo o hoye jai 😺🩷. Ami onk vabsilam bolbo ki bolbona but bole disilam 😭🤡. Bhai kemne je atoh sahosh paisilam bolar jnno!!☠️.
+
+Tmk onk force kortam je matching pfp diteh then story teh mention diteh.... But oisob moteo thik kori nai 😞✋. Love show off korar jinish na oita ami pore jeye realize korsi 🤧🤧.
+
+Ager kotha guli baad di. Oisob pura bolte gele tmr amr msg ta porte 3 din laiga jabe 👽. Birthday ar enjoy kora lagbena!!
+
+Tohh.. akhoner kotha teh ashi!!🐍.
+
+Honestly ami nijeo jani na kivabe ami tmk peye gesi!🌟. Ami onk appreciate kori je tmi amr life e ascho!!!
+
+Amr life black and white screen er moton chilo ar tmi eshe oita ke colourful kore diso!!! 🍃.
+
+Amiyo thik kore nijer moner kotha prokash korte partesina msg gula teh bhai 😿. But ami sotti tmk peye onk beshi lucky feel kori!!
+
+Tmi always amr pashe thako sob kichu teh! Then amk comfort o feel korao!
+
+Tmk chara je amr ki hoito bhai!🙆🤦.
+
+Last 1 month e amra aro onk beshiii closeee hoye gesi really!! Onkk beshi!
+
+Bangla teh bolte partesina, English ei boli 🙁. You are the one who completes me! Tmk chara ami kono future vabtei parina tbh!!
+
+Jodi tmi amr kopale likhao na thako,ami Allah er kache attoh dua korbo je Allah tmk amr banay dibe In'sha'Allah 😺.
+
+Tmk ami kemne bujhay je ami tmk kotota love kori 😭. Tmi amr kache kotota special!!! Tmr shate katano prottek ta moment e special! Shuru theke sesh porjonto sob mone ase amr! You are in my heart ❤️‍🩹. You shall be in there FOREVER. My greatest wish is that you are HAPPY when you think of ME,I am when I think of YOU. You are a princess!💓.
+
+But not every princess wears a crown. Some rule hearts, the way you rule my heart ✨.
+
+Nothing is coincidence. Every soul we met is written in our destiny. To teach us,to heal us or to love us 🤧. Tmi amr taqdeer e likha chila 💘.
+
+Remember!! I get tired of everything sometimes,But never of you. Even when I world exhausts me,you're all I need 💯🪼.
+
+Ami...aikhane bole tmk bujhaiteo parbona ar sesh o korte parbona bole je tmi amr kache kotota important 😞. Always boli and abar o boltesi je- YOU make me feel like home lamha 🫶.
+
+15 hoye gela!! Ami always jateh tmr birthday teh tmk wish korte pari ar amra jateh kokhono alada na hoye jai aita e dua korbo!!! Tmi jateh always happy thako and always jateh mone rakho je ami tmr pashe always asi!! Enjoy koro birthday! Tmk kono gift diteh partesina 😭. I really wanted to gift you something 🙁. But sadly amr ar tmr distance ta onk beshi 🫠. Maybe ai distance tar karone e amder bond atoh strong 🪼😺. Bhai onk boro hoye gese 🥸. Thak ar barabona! Always stay strong and stay healthy!!! And amr shate jateh sob kichu share koro always ✌️. I really like to listen to you 🍃
+</div>
+
+</div>
+
+<script>
+  const startBtn = document.getElementById('startBtn');
+  const landing = document.getElementById('landing');
+  const game1 = document.getElementById('game1');
+  const game2 = document.getElementById('game2');
+  const game3 = document.getElementById('game3');
+  const game4 = document.getElementById('game4');
+  const reward1 = document.getElementById('reward1');
+  const reward2 = document.getElementById('reward2');
+  const reward3 = document.getElementById('reward3');
+  const reward4 = document.getElementById('reward4');
+  const finalCake = document.getElementById('finalCake');
+  const blowBtn = document.getElementById('blowBtn');
+  const finalLetter = document.getElementById('finalLetter');
+
+  // Start
+  startBtn.onclick = ()=>{
+    landing.style.display='none';
+    game1.style.display='flex';
+  }
+
+  // Game 1: Gift Unlock
+  document.getElementById('unlockBtn').onclick = ()=>{
+    reward1.innerText="You just unlocked my heart 💖… and it’s all yours, Lamha 💫";
+    setTimeout(()=>{game1.style.display='none'; game2.style.display='flex';},1500);
+  }
+
+  // Game 2: Cake Decorate
+  const cake = document.getElementById('cake');
+  let placed=0;
+  document.querySelectorAll('.decorBtn').forEach(btn=>{
+    btn.onclick = ()=>{
+      const div = document.createElement('div');
+      div.className='decor';
+      div.style.background=btn.innerText==='💖'?'#ff1493':btn.innerText==='🕯️'?'#fff':btn.innerText==='🍓'?'#ff4d4d':'#ff99cc';
+      div.style.left=Math.random()*150+'px';
+      div.style.top=Math.random()*100+'px';
+      cake.appendChild(div);
+      placed++;
+      if(placed>=3){
+        reward2.innerText="Every decoration reminds me of you 🫶… you make everything more beautiful 💞";
+        setTimeout(()=>{game2.style.display='none'; game3.style.display='flex';},1500);
+      }
+    }
+  });
+
+  // Game 3: Pin Balloon
+  const balloon = document.getElementById('balloon');
+  let balloonPlaced=false;
+  balloon.onmousedown = (e)=>{
+    e.preventDefault();
+    const move = (ev)=>{
+      balloon.style.left = ev.clientX - balloon.offsetWidth/2 + 'px';
+      balloon.style.top = ev.clientY - balloon.offsetHeight/2 + 'px';
+    }
+    document.addEventListener('mousemove',move);
+    document.addEventListener('mouseup',()=>{
+      document.removeEventListener('mousemove',move);
+      if(balloon.offsetTop>180 && balloon.offsetLeft>80 && balloon.offsetLeft<180){
+        reward3.innerText="You pinned it perfectly, just like you’ve pinned yourself in my heart 💖✨";
+        setTimeout(()=>{game3.style.display='none'; game4.style.display='flex';},1500);
+      }
+    },{once:true});
+  }
+
+  // Game 4: Treasure Hunt
+  const treasureBoard = document.getElementById('treasureBoard');
+  let found=0;
+  for(let i=0;i<10;i++){
+    const t = document.createElement('div');
+    t.className='treasure';
+    t.style.left=Math.random()*250+'px';
+    t.style.top=Math.random()*250+'px';
+    t.innerText='💖';
+    t.onclick = ()=>{
+      t.style.display='none';
+      found++;
+      if(found>=10){
+        reward4.innerText="Every treasure I hide is a little piece of my heart for you 💞… you found them all, Lamha 💖";
+        setTimeout(()=>{game4.style.display='none'; finalCake.style.display='block';},1500);
+      }
+    }
+    treasureBoard.appendChild(t);
+  }
+
+  // Blow Candles
+  blowBtn.onclick=()=>{
+    document.querySelector('.flame').style.display='none';
+    blowBtn.style.display='none';
+    finalLetter.style.display='block';
+    finalLetter.scrollIntoView({behavior:'smooth'});
+  }
+</script>
+</body>
+</html>
