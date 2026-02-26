@@ -499,16 +499,49 @@
             margin-bottom: 20px;
         }
 
+        /* Final Cake Section with Knife */
         .final-cake-container {
             text-align: center;
             animation: fadeIn 1s ease;
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .final-cake-wrapper {
+            position: relative;
+            display: inline-block;
+            margin: 30px 0;
         }
 
         .final-cake {
             font-size: 200px;
             position: relative;
             display: inline-block;
-            margin: 30px 0;
+            transition: all 0.5s ease;
+        }
+
+        .final-cake.cut {
+            animation: cakeCut 0.5s ease forwards;
+        }
+
+        @keyframes cakeCut {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .cake-left, .cake-right {
+            display: inline-block;
+            transition: all 0.8s ease;
+        }
+
+        .final-cake.sliced .cake-left {
+            transform: translateX(-30px) rotate(-5deg);
+        }
+
+        .final-cake.sliced .cake-right {
+            transform: translateX(30px) rotate(5deg);
         }
 
         .candle {
@@ -517,6 +550,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             animation: flicker 1s infinite alternate;
+            z-index: 10;
         }
 
         @keyframes flicker {
@@ -545,11 +579,98 @@
             100% { opacity: 0; transform: translateX(-50%) translateY(-30px); }
         }
 
+        /* Knife Styles */
+        .knife-container {
+            position: absolute;
+            right: -80px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: grab;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .knife-container:hover {
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .knife-container.cutting {
+            cursor: grabbing;
+            animation: cutAnimation 1s ease-in-out;
+        }
+
+        @keyframes cutAnimation {
+            0% { transform: translateY(-50%) translateX(0) rotate(0deg); }
+            30% { transform: translateY(-30%) translateX(-100px) rotate(-45deg); }
+            50% { transform: translateY(-20%) translateX(-150px) rotate(-60deg); }
+            70% { transform: translateY(-30%) translateX(-100px) rotate(-45deg); }
+            100% { transform: translateY(-50%) translateX(0) rotate(0deg); }
+        }
+
+        .knife {
+            font-size: 60px;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .cut-line {
+            position: absolute;
+            width: 4px;
+            height: 0%;
+            background: linear-gradient(to bottom, #8d6e63, #5d4037);
+            left: 50%;
+            top: 20%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 5;
+            border-radius: 2px;
+        }
+
+        .cut-line.show {
+            height: 60%;
+            opacity: 1;
+        }
+
+        .slice-btn {
+            background: linear-gradient(45deg, #ff4081, #e040fb);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.3em;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+            box-shadow: 0 5px 20px rgba(255, 64, 129, 0.4);
+        }
+
+        .slice-btn.show {
+            display: inline-block;
+        }
+
+        .slice-btn:hover {
+            transform: scale(1.05);
+        }
+
         .blow-instruction {
             font-size: 1.3em;
             color: #880e4f;
             margin-bottom: 20px;
             animation: pulse 2s infinite;
+        }
+
+        .cut-instruction {
+            font-size: 1.2em;
+            color: #ad1457;
+            margin-top: 15px;
+            font-style: italic;
+            display: none;
+        }
+
+        .cut-instruction.show {
+            display: block;
+            animation: fadeInUp 0.5s ease;
         }
 
         .letter-container {
@@ -645,17 +766,16 @@
             .cake-area { width: 250px; height: 250px; }
             .base-cake { font-size: 100px; }
             .final-cake { font-size: 150px; }
+            .knife-container { right: -60px; }
+            .knife { font-size: 50px; }
         }
     </style>
 </head>
 <body>
     <!-- Sailor Song - Multiple fallback sources -->
     <audio id="bgMusic" loop preload="auto">
-        <!-- Primary: Direct link to Sailor Song -->
         <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Galdson/Sailor_Song/Galdson_-_Sailor_Song.mp3" type="audio/mpeg">
-        <!-- Fallback 1: Alternative source -->
         <source src="https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f792cb.mp3?filename=sailor-song-122111.mp3" type="audio/mpeg">
-        <!-- Fallback 2: Another alternative -->
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
 
@@ -768,6 +888,7 @@
         </div>
     </div>
 
+    <!-- Final Cake Section with Knife and Cutting -->
     <div class="section" id="finalCake">
         <div class="final-cake-container">
             <p style="font-size: 1.5em; color: #ad1457; margin-bottom: 20px; animation: fadeInUp 1s ease;">
@@ -776,12 +897,28 @@
             
             <div class="blow-instruction">Click the candles to blow them out! 🕯️</div>
             
-            <div class="final-cake" id="finalCakeEmoji">
-                🎂
-                <div class="candle" style="top: -30px; left: 20%;" onclick="blowCandle(this)">🕯️</div>
-                <div class="candle" style="top: -40px; left: 45%;" onclick="blowCandle(this)">🕯️</div>
-                <div class="candle" style="top: -30px; left: 70%;" onclick="blowCandle(this)">🕯️</div>
+            <div class="final-cake-wrapper" id="cakeWrapper">
+                <div class="final-cake" id="finalCakeEmoji">
+                    <span class="cake-left">🎂</span>
+                    <div class="candle" style="top: -30px; left: 20%;" onclick="blowCandle(this)">🕯️</div>
+                    <div class="candle" style="top: -40px; left: 45%;" onclick="blowCandle(this)">🕯️</div>
+                    <div class="candle" style="top: -30px; left: 70%;" onclick="blowCandle(this)">🕯️</div>
+                </div>
+                
+                <!-- Cut line -->
+                <div class="cut-line" id="cutLine"></div>
+                
+                <!-- Knife -->
+                <div class="knife-container" id="knifeContainer" onclick="cutCake()">
+                    <div class="knife">🔪</div>
+                </div>
             </div>
+            
+            <div class="cut-instruction" id="cutInstruction">
+                Click the knife to cut the cake! 🔪✨
+            </div>
+            
+            <button class="slice-btn" id="sliceBtn" onclick="showLoveLetter()">Read Your Birthday Letter 💌</button>
         </div>
     </div>
 
@@ -804,6 +941,7 @@
         let triesLeft = 3;
         let treasuresFound = 0;
         let candlesBlown = 0;
+        let cakeCut = false;
         let audioLoaded = false;
 
         function createFloatingElements() {
@@ -834,7 +972,6 @@
 
         createFloatingElements();
 
-        // FIXED: Better music handling with error detection
         function initAudio() {
             const audio = document.getElementById('bgMusic');
             
@@ -849,7 +986,6 @@
                 document.getElementById('musicStatus').style.display = 'block';
             });
             
-            // Try to load
             audio.load();
         }
 
@@ -868,14 +1004,12 @@
                 status.style.display = 'block';
                 musicPlaying = false;
             } else {
-                // Set volume and try to play
                 audio.volume = 0.4;
                 
                 const playPromise = audio.play();
                 
                 if (playPromise !== undefined) {
                     playPromise.then(() => {
-                        // Playing successfully
                         btn.textContent = '🎵';
                         btn.classList.remove('muted');
                         status.textContent = '♪ Sailor Song playing...';
@@ -886,13 +1020,11 @@
                             status.style.display = 'none';
                         }, 3000);
                     }).catch(error => {
-                        // Autoplay blocked or other error
                         console.log('Play error:', error);
                         btn.textContent = '🔇';
                         status.textContent = 'Click Start first, then try music!';
                         status.style.display = 'block';
                         
-                        // If audio not loaded, try reloading
                         if (!audioLoaded) {
                             audio.load();
                         }
@@ -912,7 +1044,6 @@
             showSection('game1');
             currentGame = 1;
             
-            // Try to autoplay music after user interaction (Start button)
             const audio = document.getElementById('bgMusic');
             audio.volume = 0.4;
             audio.play().then(() => {
@@ -921,7 +1052,6 @@
                 document.getElementById('musicBtn').classList.remove('muted');
                 console.log('Music autoplayed after Start click');
             }).catch(() => {
-                // Show hint to manually play
                 document.getElementById('musicStatus').style.display = 'block';
                 setTimeout(() => {
                     document.getElementById('musicStatus').style.display = 'none';
@@ -1216,10 +1346,11 @@
             
             createSmoke(candle);
             
+            // Check if all candles are blown
             if (candlesBlown >= 3) {
                 setTimeout(() => {
-                    showLoveLetter();
-                }, 1500);
+                    document.getElementById('cutInstruction').classList.add('show');
+                }, 500);
             }
         }
 
@@ -1242,6 +1373,58 @@
             }
         }
 
+        // NEW: Cake cutting function
+        function cutCake() {
+            if (cakeCut) return; // Already cut
+            if (candlesBlown < 3) {
+                alert('Blow out all the candles first! 🕯️');
+                return;
+            }
+            
+            const knifeContainer = document.getElementById('knifeContainer');
+            const finalCake = document.getElementById('finalCakeEmoji');
+            const cutLine = document.getElementById('cutLine');
+            
+            // Add cutting animation class
+            knifeContainer.classList.add('cutting');
+            
+            // Play cutting sound effect (visual feedback)
+            createConfetti();
+            
+            setTimeout(() => {
+                // Show cut line
+                cutLine.classList.add('show');
+                
+                // Slice the cake
+                finalCake.classList.add('sliced');
+                
+                // Change cake emoji to show it's cut
+                setTimeout(() => {
+                    finalCake.innerHTML = `
+                        <span class="cake-left">🍰</span>
+                        <span class="cake-right">🍰</span>
+                    `;
+                }, 400);
+                
+            }, 500);
+            
+            setTimeout(() => {
+                // Remove knife after cutting
+                knifeContainer.style.opacity = '0';
+                knifeContainer.style.pointerEvents = 'none';
+                
+                // Show the letter button
+                document.getElementById('sliceBtn').classList.add('show');
+                
+                cakeCut = true;
+                
+                // Celebration effects
+                createFireworks();
+                createConfetti();
+                
+            }, 1200);
+        }
+
         function showLoveLetter() {
             showSection('loveLetter');
             document.getElementById('letterBox').classList.add('show');
@@ -1249,9 +1432,9 @@
             
             const letter = `Ami really jani na kotha theke shuru korbo L. Ami tbh insta use o kortam na. And amr love er proti interest o chilona. Really! Ami bissash kortam na aisob e....But then you came into my life!!! God was really on my side when He wrote you into my story. Right at a time, I didn't even know I needed you. Amr akhono mone ase gc teh porichoy hoisilo 👽. Then nadishar shate olpo kotha hoito amr dm e ar tmi amk akdin message disila diye bolsila je-"nadisha bolse tmi naki onk innocent dekte. Koi dekhi toh tmk." Aita diye e amder dm e kotha shuru hoi!! Tmi amk nadishar shate ship korta 🤡😭. Nadishar copy teo naki likhe ashta je N+Z 🐸💔. Erpor aste aste baad diye diso or kotha 🗿. Then oije kutta Tamim ta tmk onk jalaito dm e msg kore ar tmi amk bolta je "jao jao tamim er shate kotha bolo. O amk jalaitese msg diye diye. Oke na koro amk message dite." Then ami ar tmi onk kotha boltam! Like onk beshi 👽. Tmiyo active thakta onk tokhon ar amiyo 🥸. Amder onk kichu milto ar tmr shate kotha bole onk moja paitam! Lagto je jakh keo toh atleast amk bujhe.... Amr moton kaoke paisi!!!👾💖. Then aste aste tmk pochondo o hoye jai 😺🩷. Ami onk vabsilam bolbo ki bolbona but bole disilam 😭🤡. Bhai kemne je atoh sahosh paisilam bolar jnno!!☠️. Tmk onk force kortam je matching pfp diteh then story teh mention diteh.... But oisob moteo thik kori nai 😞✋. Love show off korar jinish na oita ami pore jeye realize korsi 🤧🤧. Ager kotha guli baad di. Oisob pura bolte gele tmr amr msg ta porte 3 din laiga jabe 👽. Birthday ar enjoy kora lagbena!!
 
-Tohh.. akhoner kotha teh ashi!!🐍. Honestly ami nijeo jani na kivabe ami tmk peye gesi!🌟. Ami onk appreciate kori je tmi amr life e ascho!!! Amr life black and white screen er moton chilo ar tmi eshe oita ke colourful kore diso!!! 🍃. Ami thik kore nijer moner kotha prokash korte partesina msg gula teh bhai 😿. But ami sotti tmk peye onk beshi lucky feel kori! Tmi always amr pashe thako sob kichu teh! Then amk comfort o feel korao! Tmk chara je amr ki hoito bhai!🙆🤦. Last 1 month e amra aro onk beshiii closeee hoye gesi really!! Onkk beshi!
+Tohh.. akhoner kotha teh ashi!!🐍. Honestly ami nijeo jani na kivabe ami tmk peye gesi!🌟. Ami onk appreciate kori je tmi amr life e ascho!!! Amr life black and white screen er moton chilo ar tmi eshe oita ke colourful kore diso!!! 🍃. Ami thik kore nijer moner kotha prokash korte partesina msg gula teh bhai 😿. But ami sotti tmk peye onk beshi lucky feel kori! Tmi always amr pashe thako sob kichu teh! Then amk comfort o feel korao! Tmk chara je amr ki hoito bhai!🙆🤦. Last 1 month e amra aro onk beshiii closeee hoye gesi really!! Onkk beshi! 
 
-Bangla teh bolte partesina, English ei boli 🙁. You are the one who completes me! Tmk chara ami kono future vabtei parina tbh!! Jodi tmi amr kopale likhao na thako, ami Allah er kache attoh dua korbo je Allah tmk amr banay dibe In'sha'Allah 😺. Tmk ami kemne bujhay je ami tmk kotota love kori 😭. Tmi amr kache kotota special!!! Tmr shate katano prottek ta moment e special! Shuru theke sesh porjonto sob mone ase amr! You are in my heart ❤️‍🩹. You shall be in there FOREVER. My greatest wish is that you are HAPPY when you think of ME, I am when I think of YOU. You are a princess!💓. But not every princess wears a crown. Some rule hearts, the way you rule my heart ✨. Nothing is coincidence. Every soul we met is written in our destiny. To teach us, to heal us or to love us 🤧. Tmi amr taqdeer e likha chila 💘. Remember!! I get tired of everything sometimes, But never of you. Even when I world exhausts me, you're all I need 💯🪼. Ami...aikhane bole tmk bujhaiteo parbona ar sesh o korte parbona bole je tmi amr kache kotota important 😞. Always boli and abar o boltesi je- YOU make me feel like home lamha 🫶.
+Bangla teh bolte partesina, English ei boli 🙁. You are the one who completes me! Tmk chara ami kono future vabtei parina tbh!! Jodi tmi amr kopale likhao na thako, ami Allah er kache attoh dua korbo je Allah tmk amr banay dibe In'sha'Allah 😺. Tmk ami kemne bujhay je ami tmk kotota love kori 😭. Tmi amr kache kotota special!!! Tmr shate katano prottek ta moment e special! Shuru theke sesh porjonto sob mone ase amr! You are in my heart ❤️‍🩹. You shall be in there FOREVER. My greatest wish is that you are HAPPY when you think of ME, I am when I think of YOU. You are a princess!💓. But not every princess wears a crown. Some rule hearts, the way you rule my heart ✨. Nothing is coincidence. Every soul we met is written in our destiny. To teach us, to heal us or to love us 🤧. Tmi amr taqdeer e likha chila 💘. Remember!! I get tired of everything sometimes, But never of you. Even when I world exhausts me, you're all I need 💯🪼. Ami...aikhane bole tmk bujhaiteo parbona ar sesh o korte parbona bole je tmi amr kache kotota important 😞.You are the storm I walk into willingly,the fire I touch without fear of the burn...Always boli and abar o boltesi je- YOU make me feel like home lamha 🫶.
 
 15 hoye gela!! Ami always jateh tmr birthday teh tmk wish korte pari ar amra jateh kokhono alada na hoye jai aita e dua korbo!!! Tmi jateh always happy thako and always jateh mone rakho je ami tmr pashe always asi!! Enjoy koro birthday! Tmk kono gift diteh partesina 😭. I really wanted to gift you something 🙁. But sadly amr ar tmr distance ta onk beshi 🫠. Maybe ai distance tar karone e amder bond atoh strong 🪼😺. Bhai onk boro hoye gese 🥸. Thak ar barabona! Always stay strong and stay healthy!!! And amr shate jateh sob kichu share koro always ✌️. I really like to listen to you 🍃.
 
@@ -1361,4 +1544,3 @@ Happy Birthday My Love! 🎂💖✨
     </script>
 </body>
 </html>
-            
